@@ -4,8 +4,6 @@ from dotenv import load_dotenv
 from langchain_openai import ChatOpenAI
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import JsonOutputParser
-from fastapi import FastAPI , BackgroundTasks
-import uvicorn
 import requests
 from speech_to_text import get_order_details_from_audio
 from speech_to_text import exotel_audio_url
@@ -21,11 +19,6 @@ multiple_prompt= """You are a Sales representive who analyze a text with sales q
 User: Based on this {note} addtional iformation. Give me the json packet in this format {json_format}"""
 
 prompt  =  ChatPromptTemplate.from_template(multiple_prompt) 
-
-# prompt = ChatPromptTemplate.from_messages([
-#     ("system", "You are a Sales representive, Fetch the order details from the provided text in json packet format. Note: {note}. The demo format  {json_format}. "),
-#     ("user", "{input}")
-# ])
 
 output_parser = JsonOutputParser()
 
@@ -55,7 +48,6 @@ def webhook_trigger_func():
             try: 
                 res = requests.post(pf_url, json= requests_packet  )
                 print(f"Response status code: {res.status_code}")
-                # print(f"Response content: {requests_packet}")
             except Exception as e:
                 print(f"Error sending webhook: {str(e)}")
 

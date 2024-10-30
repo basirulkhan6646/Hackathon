@@ -1,5 +1,6 @@
 .gitignore
-/env    
+/env  
+.env  
 /HackPython/__pycache__
 /HackPython/order-api.py
 temp_audio.mp3
